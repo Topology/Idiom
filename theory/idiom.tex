@@ -1,7 +1,27 @@
 \documentclass{article}
 
+\newcommand{\nl}{\bigskip\noindent}
+
+\newcommand{\seq}[1]{\langle #1\rangle}
+
+\newcommand{\defcon}[1]{\emph{#1}}
 
 \begin{document}
 
-Hello World!
+\section{Core Definitions}
+
+\nl The concept of a \defcon{symbol} is taken as a primitive concept within a visual field.  It is an entity which occupies a fixed amount of space and which contains a pattern of color.  
+
+\nl A sequence of symbols in the visual field is called a \defcon{string}.
+
+\nl A set of symbols is called an \defcon{Alphabet}.
+
+\nl Given an alphabet $A$, a sequence of symbols $\seq{a_1a_2\dots a_n}$  is called a \defcon{string from alphabet $A$}  when  $a_i\in A$ for $i\in[1..n]$.
+
+\nl Symbols which occupy space but do not cause a color contrast with the background color of the visual field are called \defcon{whitespace symbols}.
+
+\nl A string which contains no whitespace characters is called a \defcon{terminal}.
+
+ 
+
 \end{document}
