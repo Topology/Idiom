@@ -6,6 +6,8 @@
 
 \newcommand{\defcon}[1]{\emph{#1}}
 
+\newcommand{\seqcat}{\frown}
+
 \begin{document}
 
 \section{Core Definitions}
@@ -18,9 +20,23 @@
 
 \nl Given an alphabet $A$, a sequence of symbols $\seq{a_1a_2\dots a_n}$  is called a \defcon{string from alphabet $A$}  when  $a_i\in A$ for $i\in[1..n]$.
 
+
+\nl Given a string $S_1= \seq{a_1\dots a_n}$ from alphabet $A$ and a string $S_2 = \seq{b_1\dots b_m}$ from $A$, the string $S_1\seqcat S_2 = \seq{a_1\dots a_nb_1\dots b_m}$ is called the \defcon{concatenation of $S_1$ and $S_2$}.
+
+
 \nl Symbols which occupy space but do not cause a color contrast with the background color of the visual field are called \defcon{whitespace symbols}.
 
 \nl A string which contains no whitespace characters is called a \defcon{terminal}.
+
+\nl Given a string $S$ from $A$ containing whitespace characters, a sequence of terminals $\seq{T_1,\dots, T_n}$ from $A$ is called the \defcon{sequence of terminals in $S$} when the string resulting from removing the whitespace characters from $S$ is the same string as $T_1\seqcat T_2\seqcat\dots \seqcat T_n$.
+
+\nl Given an alphabet $A$, each terminal string from $A$ occupies a fixed amount of space and contains a pattern of color.   
+
+\nl Given an alphabet $A$, a set of terminals from $A$ is also an alphabet. 
+
+
+\nl Given an alphabet $A$, and an alphabet $B$ which is a set of terminals from $A$, a string $S$ from $A$ \defcon{codes} for a string from $B$ when every terminal in the sequence of terminals of $S$ is in $B$. 
+
 
  
 
