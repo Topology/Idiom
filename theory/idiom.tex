@@ -12,33 +12,43 @@
 
 \section{Core Definitions}
 
-\nl A \defcon{visual field} is multidimensional space of location and color occurring at each location. 
+\nl A \defcon{visual field} is multidimensional space of location and color.  Each location within the space has a color associated with it.  
 
-\nl There exist a color occuring within a visual field called the \defcon{background color}.
+\nl Within the visual field there exists a color called the \defcon{background color}.
 
-\nl A \defcon{symbol} or \defcon{character} is a small region of space within the visual field which contains a pattern of color.  
+\nl A \defcon{symbol} or \defcon{character} is a region of space within the visual field which contains a pattern of color.  
 
-\nl If the color of the symbol does not contrast with the background color of the containing space, the symbol is called a \defcon{whitespace character}.  
+\nl If the color of a symbol does not contrast with the background color of the containing space, the symbol is called a \defcon{whitespace character}.  
 
-\nl Given symbols $a_1, \dots, a_n$, A sequence of symbols $\seq{a_1\dots a_n}$ in the visual field is called a \defcon{string}.
-
-\nl A string which contains no whitespace characters is called an \defcon{atomic string}.
+\nl A sequence of symbols $\seq{a_1\dots a_n}$ in the visual field is called a \defcon{string}.
 
 \nl Given a string $S_1= \seq{a_1\dots a_n}$ and a string $S_2 = \seq{b_1\dots b_m}$, the string $S_1\seqcat S_2 = \seq{a_1\dots a_nb_1\dots b_m}$ is called the \defcon{concatenation of $S_1$ and $S_2$}.
 
-\nl Given a string $S$ containing whitespace characters, a sequence of atomic strings $\seq{T_1,\dots, T_n}$ is called the \defcon{sequence of atomic strings in $S$} when the string resulting from removing the whitespace characters from $S$ is the same string as $T_1\seqcat T_2\seqcat\dots \seqcat T_n$.
 
-\nl A set of symbols or characters is called an \defcon{Alphabet}.
+
+\nl A string which contains no whitespace characters is called an \defcon{atomic string}.
+
+
+\nl Given a string $S$ containing whitespace characters, a sequence of atomic strings $\seq{T_1,\dots, T_n}$ is called the \defcon{atomic strings in $S$} when the string resulting from removing the whitespace characters from $S$ is the same string as $T_1\seqcat T_2\seqcat\dots \seqcat T_n$.
+
+\nl Given two sequences of atomic strings $A = \seq{A_1,\dots, A_n}$ and $B = \seq{B_1,\dots, B_m}$, let $C = \seq{C_1,\dots, C_l}$ be the longest common sub-sequence between $A$ and $B$, for $i \in [2..l]$, let $A_{a_{i-1}}$ in $A$ and $B_{b_{i-1}}$ in $B$ be the corresponding atomic strings to $C_{i-1}$ in $C$ and $A_{a_{i}}$ in $A$ and $B_{b_{i}}$ in $B$ be the corresponding atomic strings to $C_{i}$ in $C$.  The subsequence  (??? HOW TO ESTABLISH THIS MAPPING?   Subsitution?  This leads up to an abstract phrase. )
+
+\nl A set of symbols is called an \defcon{alphabet}.
+
 
 \nl A string occupies a fixed amount of space and contains a pattern of color and is itself a \defcon{symbol}.
 
-\nl A set of strings is an \defcon {alphabet}.
+\nl A set of strings is also an \defcon {alphabet}.
+
 
 \nl Given an alphabet $A$, a sequence of symbols $\seq{a_1a_2\dots a_n}$  is called a \defcon{string from alphabet $A$}  when  $a_i\in A$ for $i\in[1..n]$.
 
 \nl Given an alphabet $A$, a set of strings from alphabet $A$ is called a \defcon{language over alphabet $A$}.
 
-
+\nl Given an alphabet $A$, a language $B$ over alphabet $A$, and a string $S\in B$, the sequence of atomic strings $\seq{T_1,\dots, T_n}$ in $S$ is called a \defcon{phrase in $B$}.
  
+ 
+ 
+\nl Given an alphabet $A$, a language $B$ over alphabet $A$, a set $T$ of all the atomic strings occurring in the phrases of $B$, called the \defcon{terminals of $B$} and a set $V$ of atomic strings such that $V\cap T = \emptyset$, called \defcon{variables}, a sequence of atomic strings $\seq{A_1, \dots, A_n}$ from $V\cup T$ is called an \defcon{abstract phrase of $B$} when  
 
 \end{document}
