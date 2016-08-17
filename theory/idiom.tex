@@ -1,16 +1,28 @@
 \documentclass{article}
 
+
+\usepackage{mathtools}
+%\usepackage{amssymb}
+
 \newcommand{\nl}{\bigskip\noindent}
 
 \newcommand{\seq}[1]{\langle #1\rangle}
 
 \newcommand{\defcon}[1]{\emph{#1}}
 
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \newcommand{\seqcat}{\frown}
 
 \begin{document}
 
+
+
+\nl While the terms and concepts that are defined in this document may be similar to common informal concepts or terms in other formalizations, it is important to not use intuition when using this concepts and refer back to the definitions of the terms and concepts. 
+
 \section{Core Definitions}
+
+\subsection{Strings}
 
 \nl A \defcon{visual field} is multidimensional space of location and color.  Each location within the space has a color associated with it.  
 
@@ -29,9 +41,28 @@
 \nl A string which contains no whitespace characters is called an \defcon{atomic string}.
 
 
-\nl Given a string $S$ containing whitespace characters, a sequence of atomic strings $\seq{T_1,\dots, T_n}$ is called the \defcon{atomic strings in $S$} when the string resulting from removing the whitespace characters from $S$ is the same string as $T_1\seqcat T_2\seqcat\dots \seqcat T_n$.
+\nl Given a string $S$ containing whitespace characters, a sequence$\seq{T_1,\dots, T_n}$ is called the \defcon{atomic strings in $S$} when each $T_i$ is an atomic string for $i\in[1..n]$ and  $T_1\seqcat T_2\seqcat\dots \seqcat T_n$ is the string produced by removing the whitespace characters from $S$.
 
-\nl Given two sequences of atomic strings $A = \seq{A_1,\dots, A_n}$ and $B = \seq{B_1,\dots, B_m}$, let $C = \seq{C_1,\dots, C_l}$ be the longest common sub-sequence between $A$ and $B$, for $i \in [2..l]$, let $A_{a_{i-1}}$ in $A$ and $B_{b_{i-1}}$ in $B$ be the corresponding atomic strings to $C_{i-1}$ in $C$ and $A_{a_{i}}$ in $A$ and $B_{b_{i}}$ in $B$ be the corresponding atomic strings to $C_{i}$ in $C$.  The subsequence  (??? HOW TO ESTABLISH THIS MAPPING?   Subsitution?  This leads up to an abstract phrase. )
+
+\nl Given two sequences of atomic strings $A = \seq{A_1,\dots, A_n}$ and $B = \seq{B_1,\dots, B_m}$, a \defcon{patch from $A$ to $B$} is a sequence of pairs $\seq{\seq{X_1,Y_1}, \dots, \seq{X_k, Y_k}}$ such that $A = X_1\seqcat\dots\seqcat X_k$ and $B = Y_1\seqcat\dots\seqcat Y_k$.  
+
+\nl Given two sequences of atomic strings $A$ and $B$ and a patch $P$ $=$ $\langle\seq{X_1,Y_1},$ $\dots,$ $\seq{X_k, Y_k}\rangle$ from $A$ to $B$, the act of substiting in order $Y_i$ for $X_i$ in $A$ for $i\in [1..k]$ is called the \defcon{application of patch $P$ to $A$} and we denote this operation with function notation and indicate the equivalence of the resulting string: $applyPatch(P,A) = B$.
+
+\nl Given two sequences of atomic strings $A$ and $B$ and a patch $P$ $=$ $\langle\seq{X_1,Y_1},$ $\dots,$ $\seq{X_k, Y_k}\rangle$ from $A$ to $B$, the sequence $P^{-1} = \seq{\seq{Y_1,X_1}, \dots, \seq{Y_k, X_k}}$ is a patch from $B$ to $A$ and is called the \defcon{inverse of $P$}. Note that $applyPatch(P,A)= B$ if and only if $applyPatch(P^{-1}, B) = A$.
+
+
+\nl Given two sequences of atomic strings $A = \seq{A_1,\dots, A_n}$ and $B = \seq{B_1,\dots, B_m}$, let $C = \seq{C_1,\dots, C_l}$ be the longest common sub-sequence between $A$ and $B$, for $i\in[1..l]$ let $k_i$ be the position of $C_i$ in $A$ and let $j_i$ be the position of $C_i$ in $B$, a \defcon{difference between $A$ and $B$} is a sequence of triples $\seq{\seq{X_0, Y_0,Z_0}, \seq{X_1,Y_1, Z_1}, \dots, \seq{X_l, Y_l, Z_l}}$ where the following properties hold for each triple  $\seq{X_i, Y_i, Z_i}$ when $i\in[0..l]$
+\begin{itemize}
+  \item if $i = 0$ then $X_0 = \seq{\seq{},\seq{C_1}}$, $Y_0 = \seq{}$  when $C_1 = A_1$ otherwise $Y_0 = \seq{A_1, \dots, A_{k_1 -1}}$, and  $Z_0 = \seq{}$ when $C_1 = B_1$ otherwise $Z_0 = \seq{B_1, \dots, B_{j_1-1}}$.
+  \item if $i = l$ then $X_0 = \seq{\seq{C_l},\seq{}}$, $Y_l = \seq{}$  when $C_l = A_n$ otherwise $Y_l = \seq{A_{k_l +1}, \dots, A_n}$, and  $Z_l = \seq{}$ when $C_l = B_m$ otherwise $Z_l = \seq{B_{j_l+1}, \dots, B_m}$.
+  \item if $0 < i < l$ then $X_i = \seq{\seq{C_i},\seq{C_{i+1}}}$, $Y_i = \seq{}$  when $k_i + 1 = k_{i+1}$ otherwise $Y_i = \seq{A_{k_i+1}, \dots, A_{k_{i+1}-1}}$ and $Z_i = \seq{}$ when $j_i+1 = j_{i+1}$ otherwise $Z_i = \seq{B_{j_i+1}, \dots, B_{j_{i+1}-1}}$.
+\end{itemize}
+
+\nl Given two sequences of atomic strings $A$ and $B$, and a difference between $A$ and $B$ as $\seq{\seq{X_0, Y_0,Z_0}, \seq{X_1,Y_1, Z_1}, \dots, \seq{X_l, Y_l, Z_l}}$, the \defcon{patch from $A$ to $B$ specified by a difference} is the sequence $\langle$ $\seq{X_0[0], X_0[0]},$  $\seq{Y_0,Z_0},$ $\seq{X_1[0], X_1[0]},$ $\seq{Y_1,Z_1},$ $\dots,$ $\seq{X_l[0], X_l[0]},$ $\seq{Y_l, Z_l}$ $\rangle$.  
+
+
+
+\subsection{Languages}
 
 \nl A set of symbols is called an \defcon{alphabet}.
 
@@ -45,10 +76,52 @@
 
 \nl Given an alphabet $A$, a set of strings from alphabet $A$ is called a \defcon{language over alphabet $A$}.
 
-\nl Given an alphabet $A$, a language $B$ over alphabet $A$, and a string $S\in B$, the sequence of atomic strings $\seq{T_1,\dots, T_n}$ in $S$ is called a \defcon{phrase in $B$}.
+\nl Given an alphabet $A$, a language $B$ over alphabet $A$, and a string $S\in B$, the sequence of atomic strings $\seq{S_1,\dots, S_n}$ in $S$ is called a \defcon{statement of $B$}.
  
  
- 
-\nl Given an alphabet $A$, a language $B$ over alphabet $A$, a set $T$ of all the atomic strings occurring in the phrases of $B$, called the \defcon{terminals of $B$} and a set $V$ of atomic strings such that $V\cap T = \emptyset$, called \defcon{variables}, a sequence of atomic strings $\seq{A_1, \dots, A_n}$ from $V\cup T$ is called an \defcon{abstract phrase of $B$} when  
+\nl Given an alphabet $A$ and a language $B$ over alphabet $A$, let $T$ be the set of all atomic strings occurring in the statements of $B$, called the \defcon{terminals of $B$}, let $V$ be a set of atomic strings over $A$, called \defcon{variables}, such that $V\cap T = \emptyset$, A sequence of atoms $C = \seq{C_1, \dots C_n}$ from $V\cup T$ is called a \defcon{potential phrase in $B$} if there exists a statement $S = \seq{S_1, \dots, S_m}$ in $B$ such that a patch $P$ $=$ $\langle\seq{X_1,Y_1},$ $\dots,$ $\seq{X_n, Y_n}\rangle$ from $C$ to $S$ can be constructed with the following properties: for $i\in[1..k]$ $X_i = \seq{C_i}$ and if $C_i$ is in $T$ then $Y_i = X_i$.
+
+
+\nl Given an alphabet $A$ and a language $B$ over alphabet $A$, a \defcon{phrase based specification of $B$} is a tuple of the form $\seq{T, V, S, F, P}$ where the following properties hold: 
+\begin{itemize}
+  \item $T$ is the set of all atomic strings occuring in the statements of $B$, called \defcon{terminals}. 
+  \item $V$ is a set of atomic strings over $A$ such that $V\cap T = \emptyset$, called \defcon{variables}.
+  \item $S$ is a set of atomic strings over $A$ such that $S\cap V = \emptyset$ and $\S\cap T = emptyset$, called \defcon{sorts} or \defcon{types}.
+  \item $F$ is a total function mapping variables in $V$ to types in $S$
+  \item $P$ is a set of \defcon{typed phrases} of the form (??) need to fill in.
+\end{itemize}
+
+
+\nl Equivalence to Context Free Languages
+
+\nl Isomorphism On phrase based specifications.  
+
+\nl Homomorphism.  
+
+\nl Translation
+
+\nl Denotational Specification Of A Translation
+
+\nl Evaluation Function (homomorphism to self)
+
+\nl Minimal Language (the only homomorphism to self is an isomorphism)
+
+
+\nl Composable Language Specifications
+
+\nl Composable Domain Specific Languages
+
+\nl Specification Of Interpreters /Debuggers
+
+\nl Specification Of Parsers
+
+\nl Specification Of Compilers (Translators). 
+
+\section{The Language ASP}
+
+\section{Specification Of Semantically Aware Grammars. }
+
+
+
 
 \end{document}
