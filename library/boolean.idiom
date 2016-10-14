@@ -1,0 +1,28 @@
+language Boolean
+
+type Boolean
+
+value "true"
+
+value "false"
+
+variable A:Boolean, B:Boolean
+
+phrase Boolean.or "A or B":Boolean
+
+phrase Boolean.and "A and B":Boolean
+
+phrase Boolean.not "not A": Boolean
+
+precedence Boolean.not, Boolean.and, Boolean.or
+
+interperate "true or A" as "true"
+interperate "A or true" as "true"
+interperate "A and true" as "A"
+interperate "true and A" as "A"
+interperate "false or A" as "A"
+interperate "A or false" as "A"
+interperate "false and A" as "false"
+interperate "A and false" as "false"
+interperate "not true" as "false"
+interperate "not false" as true"
